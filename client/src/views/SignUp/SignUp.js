@@ -4,7 +4,35 @@ import './SignUp.css'
 function SignUp() {
   return (
     <div>
-         <h1>SignUp</h1>
+      <h1>User Registration</h1>
+
+      <form className='signUpForm'>
+        <input
+          type='text'
+          placeholder='Full Name'
+          className='userInput'
+        />
+
+        <input
+          type='email'
+          placeholder='Email'
+          className='userInput'
+        />
+
+        <input
+          type='password'
+          placeholder='Password'
+          className='userInput'
+        />
+
+        <input
+          type='Date'
+          placeholder='Date of Birth'
+          className='userInput'
+        />
+
+        <button type='button'>Register</button>
+      </form>
     </div>
   )
 }
