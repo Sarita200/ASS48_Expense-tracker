@@ -1,3 +1,4 @@
+import User from "../models/User.js";
 import Transaction from "./../models/Transaction.js"
 
 const PostTransaction = async (req ,res) =>{
@@ -29,6 +30,29 @@ const PostTransaction = async (req ,res) =>{
     }
 }
 
+const getTransaction = async(req,res) =>{
+    const { userId } = req.query;
+
+    const user = await User.findById(userId)
+
+    if(!user){
+        return res.json({
+            success:true,
+            message :`User Not Found`,
+            data:null
+        })
+    }
+
+const transactions = await Transaction.findOne({user : userId })
+
+res.json({
+    success :true,
+    message:"Transaction Fetched Successfully",
+    data :transactions
+})
+}
+
 export{
-    PostTransaction
+    PostTransaction,
+    getTransaction
 }

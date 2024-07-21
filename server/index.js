@@ -5,7 +5,7 @@ import dotenv from "dotenv"
 dotenv.config();
 
 import { PostSignUp , PostLogin } from "./controllers/user.js";
-import {PostTransaction} from "./controllers/transaction.js"
+import {PostTransaction ,getTransaction} from "./controllers/transaction.js"
 
 
 const app = express()
@@ -33,6 +33,7 @@ app.post("/signup",PostSignUp )
 app.post("/login", PostLogin)
 
 app.post("/transaction", PostTransaction)
+app.get("/transactions", getTransaction)
 
 
 const PORT = process.env.PORT || 5000;
