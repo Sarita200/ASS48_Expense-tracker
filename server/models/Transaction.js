@@ -1,4 +1,4 @@
-import { Schema , isObjectIdOrHexString, model } from "mongoose";
+import { Schema , model } from "mongoose";
 
 const transactionSchema =new Schema({
     amount :{
@@ -7,7 +7,7 @@ const transactionSchema =new Schema({
     },
     category :{
         type :String,
-        default : other,
+        default : "Other",
     },
     type :{
         type :Number,
@@ -15,7 +15,7 @@ const transactionSchema =new Schema({
     },
     user:{
         type :Schema.Types.ObjectId,
-        ref : "User0,"
+        ref : "User,"
     }
 });
 

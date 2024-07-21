@@ -12,7 +12,7 @@ const userSchema = new Schema({
     },
     password : {
         type : String,
-        require :true
+        require :true,
     },
     dob : {
         type : Date,
@@ -20,11 +20,11 @@ const userSchema = new Schema({
     },
     
     
-}
+},
 {
     timestamps :true
 });
 
-const User = model("User" , userName);
+const User = model("User" , userSchema);
 
 export default User;
