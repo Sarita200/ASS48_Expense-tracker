@@ -1,6 +1,10 @@
 import { Schema , model } from "mongoose";
 
 const transactionSchema =new Schema({
+    title :{
+        type :String,
+        require :true,
+    },
     amount :{
         type :Number,
         require :true,
@@ -10,7 +14,7 @@ const transactionSchema =new Schema({
         default : "Other",
     },
     type :{
-        type :Number,
+        type :String,
         enum : ["debit" , "credit"],
     },
     user:{
