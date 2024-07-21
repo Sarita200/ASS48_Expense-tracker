@@ -13,43 +13,75 @@ app.use(express.json());
 app.use(cors());
 
 
-const connectDB = async () =>{
+const connectDB = async () => {
     const conn = await mongoose.connect(process.env.MONGO_URL);
 
-    if(conn){
+    if (conn) {
         console.log(`MongoDB connected Successfully..📦`);
     }
 };
 connectDB();
 
-app.get('/' , (req , res) =>{
+app.get('/', (req, res) => {
     res.json({
-        message : "Welcome to expense Tracker"
+        message: "Welcome to expense Tracker"
     })
 })
 
-app.post("/signup" , async (req , res ) =>{
-    const  { fullName , email , password ,dob } = req.body;
+app.post("/signup", async (req, res) => {
+    const { fullName, email, password, dob } = req.body;
 
     const user = new User({
-        fullName ,
+        fullName,
         email,
         password,
-        dob
+        dob : new Date(dob)
     });
 
-    const savedUser = await  user.save();
+    try {
+        const savedUser = await user.save();
 
-    res,json({
-        success :true,
-        message : `SignUp Successfully`
-    })
+        res.json({
+            success: true,
+            message: `SignUp Successfully`,
+            data: savedUser
+        })
+    }
+    catch(e){
+        res.json({
+            success : false,
+            message : e.message,
+            data :null
+        })
+    }
 })
 
-app.post("/login" , (req , res ) =>{})
+app.post("/login", async (req, res) => { 
+    const {email, password } =req.body ;
+
+    const  user = await User.findOne({
+        email : email,
+        password :password
+    });
+
+    if(user){
+        return res.json({
+            success :true,
+            message :"Login Successfull",
+            data :user
+        })
+    }
+    else{
+        return res.json({
+            success :false,
+            message :"Invalid credentials",
+            data :null
+        })
+    }
+})
 
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT , () =>{
+app.listen(PORT, () => {
     console.log(`Server is Running on port ${PORT}`);
 })
